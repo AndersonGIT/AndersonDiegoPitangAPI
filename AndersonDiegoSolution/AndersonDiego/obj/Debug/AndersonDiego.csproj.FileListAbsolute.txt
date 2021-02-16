@@ -303,7 +303,6 @@ C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonD
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\bin\pt-br\System.Web.WebPages.resources.dll
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\bin\pt-br\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\bin\pt-br\System.Web.WebPages.Razor.resources.dll
-C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\obj\Debug\AndersonDiego.csprojAssemblyReference.cache
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\obj\Debug\AndersonDiego.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\obj\Debug\AndersonDiego.csproj.CopyComplete
 C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego\obj\Debug\AndersonDiego.dll
