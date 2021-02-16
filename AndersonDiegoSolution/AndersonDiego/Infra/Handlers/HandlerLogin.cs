@@ -7,21 +7,13 @@ namespace AndersonDiego.Infra.Handlers
 {
     public class HandlerLogin
     {
-        ResponseError responseError;
-        IUserRepository userRepository;
+        ResponseError _ResponseError;
+        IUserRepository _UserRepository;
 
-        // I.O.C
-
-        //public HandlerLogin(ResponseError pResponseError, IUserRepository pUserRepository)
-        //{
-        //    responseError = pResponseError;
-        //    userRepository = pUserRepository;
-        //}
-
-        public HandlerLogin()
+        public HandlerLogin(ResponseError pResponseError, IUserRepository pUserRepository)
         {
-            responseError = new ResponseError();
-            userRepository = new UserRepository();
+            _ResponseError = pResponseError;
+            _UserRepository = pUserRepository;
         }
 
         public object Login(string pEmail, string pPassword)
@@ -30,14 +22,14 @@ namespace AndersonDiego.Infra.Handlers
 
             if (string.IsNullOrWhiteSpace(pEmail) || string.IsNullOrWhiteSpace(pPassword))
             {
-                responseError.ErrorCode = ConstantError.MISSING_FIELDS;
-                responseError.Message = HandlerError.GetErrorDescription(ConstantError.MISSING_FIELDS, string.Empty);
-                responseError.ContainsError = true;
+                _ResponseError.ErrorCode = ConstantError.MISSING_FIELDS;
+                _ResponseError.Message = HandlerError.GetErrorDescription(ConstantError.MISSING_FIELDS, string.Empty);
+                _ResponseError.ContainsError = true;
 
-                result = responseError;
+                result = _ResponseError;
             }
 
-            User userFound = userRepository.Login(pEmail, pPassword);
+            User userFound = _UserRepository.Login(pEmail, pPassword);
 
             if (userFound?.UserId >= 1)
             {
@@ -45,10 +37,10 @@ namespace AndersonDiego.Infra.Handlers
             }
             else
             {
-                responseError.ErrorCode = ConstantError.EMAIL_OR_PASSWD_NT_EXISTS;
-                responseError.Message = HandlerError.GetErrorDescription(ConstantError.EMAIL_OR_PASSWD_NT_EXISTS, string.Empty);
-                responseError.ContainsError = true;
-                result = responseError;
+                _ResponseError.ErrorCode = ConstantError.EMAIL_OR_PASSWD_NT_EXISTS;
+                _ResponseError.Message = HandlerError.GetErrorDescription(ConstantError.EMAIL_OR_PASSWD_NT_EXISTS, string.Empty);
+                _ResponseError.ContainsError = true;
+                result = _ResponseError;
             }
 
             return result;

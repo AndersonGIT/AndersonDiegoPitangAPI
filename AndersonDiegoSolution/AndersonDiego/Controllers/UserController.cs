@@ -11,17 +11,18 @@ namespace AndersonDiego.Controllers
 {
     public class UserController : ApiController
     {
-        // I.O.C
+        private IUserRepository _UserRepository;
+        private Response _Response;
+        private ResponseError _ResponseError;
+        private HandlerLogin _HandlerLogin;
 
-        //IHttpActionResult actionResult;
-        //ResponseError responseError;
-        //IUserRepository userRepository;
-        //public UserController(IHttpActionResult pActionResult, ResponseError pResponseError, IUserRepository pUserRepository)
-        //{
-        //    actionResult = pActionResult;
-        //    responseError = pResponseError;
-        //    userRepository = pUserRepository;
-        //}
+        public UserController(IUserRepository pUserRepository, Response pResponse, ResponseError pResponseError, HandlerLogin pHandlerLogin )
+        {
+            _UserRepository = pUserRepository;
+            _Response = pResponse;
+            _ResponseError = pResponseError;
+            _HandlerLogin = pHandlerLogin;
+        }
 
         [HttpPost]
         [Route("api/signup")]
@@ -29,19 +30,15 @@ namespace AndersonDiego.Controllers
         {
             try
             {
-                Response response = new Response();
-                ResponseError responseError;
-                IUserRepository userRepository = new UserRepository();
+                _ResponseError = pUser.Validate();
 
-                responseError = pUser.Validate();
-
-                if (responseError.ContainsError)
-                    return Content(HttpStatusCode.BadRequest, responseError);
-                else if (userRepository.Insert(pUser)){
-                    response.Message = "Signed Up Successfuly.";
+                if (_ResponseError.ContainsError)
+                    return Content(HttpStatusCode.BadRequest, _ResponseError);
+                else if (_UserRepository.Insert(pUser)){
+                    _Response.Message = "Signed Up Successfuly.";
                 }
 
-                return Json(response);
+                return Json(_Response);
             }
             catch (Exception ex)
             {
@@ -55,11 +52,7 @@ namespace AndersonDiego.Controllers
         {
             try
             {
-                Response response = new Response();
-                HandlerLogin handlerLogin = new HandlerLogin();
-                string result = string.Empty;
-
-                object objectLogin = handlerLogin.Login(pLogin.Email, pLogin.Password);
+                object objectLogin = _HandlerLogin.Login(pLogin.Email, pLogin.Password);
 
                 if (objectLogin is ResponseError loginError)
                 {
@@ -68,13 +61,13 @@ namespace AndersonDiego.Controllers
                 }
                 else if (objectLogin is User user)
                 {
-                    response.Message = $"The user: {user.FirstName}, has just SignedIn Successfuly.";
+                    _Response.Message = $"The user: {user.FirstName}, has just SignedIn Successfuly.";
 
                     if (!user.LastLogin.Equals(default(DateTime)))
-                        response.Message += $" LastLogin ocurred at: {user.LastLogin}";
+                        _Response.Message += $" LastLogin ocurred at: {user.LastLogin}";
                 }
 
-                return Json(response);
+                return Json(_Response);
             }
             catch (Exception ex)
             {
@@ -91,34 +84,26 @@ namespace AndersonDiego.Controllers
 
             try
             {
-                ResponseError responseError;
-                IUserRepository userRepository = new UserRepository();
-
                 if (Request.Headers.Authorization != null)
                 {
-                    User user = userRepository.GetUserById(1);
+                    User user = _UserRepository.GetUserById(1);
                     if (user == null)
                     {
-                        responseError = new ResponseError()
-                        {
-                            ErrorCode = ConstantError.USER_NOT_FOUND,
-                            Message = HandlerError.GetErrorDescription(ConstantError.USER_NOT_FOUND, string.Empty),
-                            ContainsError = true
-                        };
-                        return Content(HttpStatusCode.NotFound, responseError);
+                        _ResponseError.ErrorCode = ConstantError.USER_NOT_FOUND;
+                        _ResponseError.Message = HandlerError.GetErrorDescription(ConstantError.USER_NOT_FOUND, string.Empty);
+                        _ResponseError.ContainsError = true;
+
+                        return Content(HttpStatusCode.NotFound, _ResponseError);
                     }
                     else return Json(user);
                 }
                 else
                 {
-                    responseError = new ResponseError()
-                    {
-                        ErrorCode = ConstantError.UNAUTHORIZED,
-                        Message = HandlerError.GetErrorDescription(ConstantError.UNAUTHORIZED, string.Empty),
-                        ContainsError = true
-                    };
+                    _ResponseError.ErrorCode = ConstantError.UNAUTHORIZED;
+                    _ResponseError.Message = HandlerError.GetErrorDescription(ConstantError.UNAUTHORIZED, string.Empty);
+                    _ResponseError.ContainsError = true;
 
-                    return Content(HttpStatusCode.Unauthorized, responseError);
+                    return Content(HttpStatusCode.Unauthorized, _ResponseError);
                 }
             }
             catch (Exception ex)

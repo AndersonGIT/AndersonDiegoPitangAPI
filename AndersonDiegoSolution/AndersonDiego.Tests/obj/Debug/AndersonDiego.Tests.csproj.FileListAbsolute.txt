@@ -1,0 +1,2 @@
+C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego.Tests\obj\Debug\AndersonDiego.Tests.csprojAssemblyReference.cache
+C:\Users\Dell\Google Drive\PitangAgileIT\Desafio\AndersonDiegoSolution\AndersonDiego.Tests\obj\Debug\AndersonDiego.Tests.csproj.CoreCompileInputs.cache

@@ -15,7 +15,6 @@ namespace AndersonDiego.Infra.Handlers
             string result = string.Empty;
             switch (pCodeError)
             {
-
                 case ConstantError.MISSING_FIELDS:
                     result = "Missing Fields";
                     break;
