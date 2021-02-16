@@ -123,9 +123,6 @@ namespace AndersonDiego.Controllers
         [Authorize]
         public IHttpActionResult Me()
         {
-            //TODO: Neeed to implement authentication for taking it at this Endpoint.
-            //The beyond implementation is simulating an existing User with Id 1, for taking it.
-
             try
             {
                 User user = null;
