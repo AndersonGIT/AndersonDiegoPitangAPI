@@ -18,7 +18,8 @@ namespace AndersonDiego
             container.RegisterType<Response, Response>();
             container.RegisterType<ResponseError, ResponseError>();
             container.RegisterType<HandlerLogin, HandlerLogin>();
-
+            container.RegisterType<OAuthProvider, OAuthProvider>();
+            
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }

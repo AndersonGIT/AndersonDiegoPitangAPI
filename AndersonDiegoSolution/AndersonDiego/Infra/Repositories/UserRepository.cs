@@ -38,17 +38,17 @@ namespace AndersonDiego.Infra.Repositories
             if (userFound != null)
             {
                 //Intializing a new Object to avoid reference on last login set up.
-                userFound = new User()
-                {
-                    UserId = userFound.UserId,
-                    FirstName = userFound.FirstName,
-                    LastName = userFound.LastName,
-                    Email = userFound.Email,
-                    Password = userFound.Password,
-                    Phones = userFound.Phones,
-                    CreatedAt = userFound.CreatedAt,
-                    LastLogin = userFound.LastLogin
-                };
+                //userFound = new User()
+                //{
+                //    UserId = userFound.UserId,
+                //    FirstName = userFound.FirstName,
+                //    LastName = userFound.LastName,
+                //    Email = userFound.Email,
+                //    Password = userFound.Password,
+                //    Phones = userFound.Phones,
+                //    CreatedAt = userFound.CreatedAt,
+                //    LastLogin = userFound.LastLogin
+                //};
                 
                 SetLastLogin(userFound.UserId);
             }
